@@ -1,39 +1,32 @@
 # Odd-Even Cricket Game
 
-## Overview
+A modular, terminal-based Python simulation of the classic Hand Cricket game played between a user and the computer.
 
-This is a simple Python cricket game where the player plays against the computer. It uses an Odd-Even toss to decide who bats or bowls first.
+## Overview
+This project provides an interactive simulation of traditional Odd-Even cricket. It features an automated toss, dynamic run tracking, boundary condition validation, and match outcome evaluation. The codebase is organized into modular Python files to separate game engine logic, user input sanitization, terminal display rendering, and computer decision-making.
 
 ## Features
-
-* Odd-Even toss
-* Batting and bowling
-* Random computer choices
-* 12 balls per innings
-* 1 wicket per innings
-* Target score
-* Input validation
-* Play again option
+* **Rule-Based Toss:** Interactive Odd-Even toss resolving batting and bowling rights.
+* **Match Mechanics:** Standard two-innings format limited to 12 legal deliveries or 1 wicket per side.
+* **Dynamic Target Calculation:** Real-time scoring updates and early chase termination upon passing the target.
+* **Defensive Input Handling:** Catches conversion errors, empty inputs, and numbers outside the valid 1–6 range without crashing.
+* **Computer Opponent:** Randomized adversary choices for fair delivery outcomes.
+* **Session Management:** Post-match summary with an interactive replay loop.
 
 ## Technologies Used
+* **Language:** Python 3
+* **Standard Libraries:** `random`, `sys`
+* **Development Environment:** Visual Studio Code / Terminal
+* **Version Control:** Git & GitHub
 
-* Python
-* Random module
-* VS Code / Python IDLE
-
-## How to Run
-
-1. Install Python.
-2. Open `Odd_Even_project.py`.
-3. Run the file in Python IDLE, VS Code, or Terminal.
-4. Follow the instructions shown on the screen.
-
-## Testing
-
-Test the game by:
-
-* Entering valid and invalid inputs.
-* Checking batting and bowling.
-* Checking the toss result.
-* Playing until the innings ends.
-* Testing the Yes/No play-again option.
+## Project Structure
+```text
+Vityarthi_project-/
+├── main.py          # Entry point and match orchestrator
+├── engine.py        # Core innings and target evaluation logic
+├── player.py        # Computer adversary decision routines
+├── validator.py     # Input sanitization and bounds checking
+├── display.py       # Terminal UI and scoreboard formatting
+├── test_cricket.py  # Unit test suite
+├── statement.md     # Project scope and problem statement
+└── README.md        # Documentation and execution guide
