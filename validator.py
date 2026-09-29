@@ -1,3 +1,4 @@
+#This function inputs Odd or Even from user
 def get_odd_even():
     while True:
         choice = input("Enter Odd or Even: ").strip().lower()
@@ -5,6 +6,7 @@ def get_odd_even():
             return choice
         print("Invalid choice! Please enter Odd or Even.")
 
+#This function inputs number from user between 1-6
 def get_number():
     while True:
         try:
@@ -15,6 +17,7 @@ def get_number():
         except ValueError:
             print("Invalid input! Please enter a valid number.")
 
+#This function inputs the user's choice for batting or bowling if they won the toss
 def get_batting_bowling():
     while True:
         choice = input("Choose Batting or Bowling: ").strip().lower()
@@ -22,6 +25,7 @@ def get_batting_bowling():
             return choice.capitalize()
         print("Invalid choice! Please type Batting or Bowling.")
 
+#This function handles the error
 def get_run_input(prompt):
     while True:
         try:

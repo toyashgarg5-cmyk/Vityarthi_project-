@@ -3,6 +3,7 @@ from player import get_computer_toss_number, get_computer_toss_decision
 from display import show_welcome, show_toss_result, show_match_result
 from engine import play_batting_innings, play_bowling_innings
 
+# This function runs the toss
 def conduct_toss():
     print("\n--- TOSS ---")
     user_choice = get_odd_even()
@@ -32,6 +33,7 @@ def conduct_toss():
             
     return user_role
 
+# This function runs the actual game 
 def play_match():
     show_welcome()
     user_first_role = conduct_toss()
@@ -53,6 +55,7 @@ def play_match():
         
     show_match_result(user_score, comp_score)
 
+#This function asks the user if they want to play again
 def main():
     while True:
         play_match()

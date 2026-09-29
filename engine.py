@@ -5,6 +5,7 @@ from display import show_delivery, show_innings_end
 MAX_BALLS = 12
 MAX_WICKETS = 1
 
+#This function runs the mechanism for the batting innings
 def play_batting_innings(target=None):
     print("\n" + "="*30)
     print("🏏 TIME TO BAT! Let's put up a good score.")
@@ -41,6 +42,7 @@ def play_batting_innings(target=None):
     show_innings_end(score)
     return score
 
+#This function runs the mechanism for the bowling innings
 def play_bowling_innings(target=None):
     print("\n" + "="*30)
     print("🥎 TIME TO BOWL! Let's defend this total.")
