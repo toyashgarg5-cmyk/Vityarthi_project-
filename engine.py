@@ -2,74 +2,91 @@ from validator import get_run_input
 from player import get_computer_run
 from display import show_delivery, show_innings_end
 
-MAX_BALLS = 12
-MAX_WICKETS = 1
+# match rules setup
+max_balls = 12
+max_wickets = 1
+MAX_BALLS = max_balls
+MAX_WICKETS = max_wickets
 
-#This function runs the mechanism for the batting innings
-def play_batting_innings(target=None):
-    print("\n" + "="*30)
-    print("🏏 TIME TO BAT! Let's put up a good score.")
-    print("="*30)
+# user batting innings
+def bat_innings(target=None):
+    sep = "=" * 30
+    print("\n" + sep)
+    print("TIME TO BAT! Let's put up a good score.")
+    print(sep)
     
     score = 0
-    wicket = 0
+    wkt = 0
     
-    for ball in range(1, MAX_BALLS + 1):
-        # Show target reminder if chasing
+    for b in range(1, max_balls + 1):
+        # target status when chasing
         if target is not None:
-            runs_needed = target - score
-            print(f"\n[Target: {target} | Need {runs_needed} runs from {MAX_BALLS - ball + 1} balls]")
+            req = target - score
+            b_left = (max_balls - b) + 1
+            print("\n[Target: %d | Need %d runs from %d balls]" % (target, req, b_left))
             
-        user_choice = get_run_input(f"Ball {ball}/{MAX_BALLS} - Play your shot (1-6): ")
-        comp_choice = get_computer_run()
+        msg = "Ball " + str(b) + "/" + str(max_balls) + " - Play your shot (1-6): "
+        u_shot = get_run_input(msg)
+        c_bowl = get_computer_run()
         
-        # Add a little flair for big hits
-        if user_choice in [4, 6] and user_choice != comp_choice:
-            print(f"💥 Shot! You went for a big one...")
+        # 4s and 6s celebration
+        if u_shot in [4, 6]:
+            if u_shot != c_bowl:
+                print("Shot! You went for a big one...")
             
-        if user_choice == comp_choice:
-            print("\n❌ Oh no! The bowler read your mind. You're OUT! 🚶‍♂️")
-            wicket += 1
+        # check wicket
+        if u_shot == c_bowl:
+            print("\nOh no! The bowler read your mind. You're OUT!")
+            wkt = wkt + 1
             break
         else:
-            score += user_choice
-            show_delivery("Your shot", user_choice, "Bowl", comp_choice, score)
+            score = score + u_shot
+            show_delivery("Your shot", u_shot, "Bowl", c_bowl, score)
             
-        if target is not None and score >= target:
-            print("\n🎉 Boom! Target chased down successfully! You legend!")
-            break
+        if target is not None:
+            if score >= target:
+                print("\nBoom! Target chased down successfully! You legend!")
+                break
             
     show_innings_end(score)
     return score
 
-#This function runs the mechanism for the bowling innings
-def play_bowling_innings(target=None):
-    print("\n" + "="*30)
-    print("🥎 TIME TO BOWL! Let's defend this total.")
-    print("="*30)
+# user bowling innings
+def bowl_innings(target=None):
+    sep = "=" * 30
+    print("\n" + sep)
+    print("TIME TO BOWL! Let's defend this total.")
+    print(sep)
     
     score = 0
-    wicket = 0
+    wkt = 0
     
-    for ball in range(1, MAX_BALLS + 1):
+    for b in range(1, max_balls + 1):
         if target is not None:
-            runs_needed = target - score
-            print(f"\n[Target to defend: {target} | Computer needs {runs_needed} runs]")
+            rem = target - score
+            print("\n[Target to defend: %s | Computer needs %s runs]" % (target, rem))
             
-        user_choice = get_run_input(f"Ball {ball}/{MAX_BALLS} - Set your delivery (1-6): ")
-        comp_choice = get_computer_run()
+        msg = "Ball %d/%d - Set your delivery (1-6): " % (b, max_balls)
+        u_bowl = get_run_input(msg)
+        c_shot = get_computer_run()
         
-        if user_choice == comp_choice:
-            print("\n wicket! YES! You outsmarted the computer! 🎯🔥")
-            wicket += 1
+        # check wicket
+        if u_bowl == c_shot:
+            print("\nWicket! YES! You outsmarted the computer!")
+            wkt = wkt + 1
             break
         else:
-            score += comp_choice
-            show_delivery("Computer's shot", comp_choice, "Your delivery", user_choice, score)
+            score = score + c_shot
+            show_delivery("Computer's shot", c_shot, "Your delivery", u_bowl, score)
             
-        if target is not None and score >= target:
-            print("\n💔 Heartbreak! The computer chased down the target.")
-            break
+        if target is not None:
+            if score >= target:
+                print("\nHeartbreak! The computer chased down the target.")
+                break
             
     show_innings_end(score)
     return score
+
+# aliases for project compatibility
+play_batting_innings = bat_innings
+play_bowling_innings = bowl_innings

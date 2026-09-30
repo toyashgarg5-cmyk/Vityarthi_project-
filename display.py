@@ -1,42 +1,60 @@
-#Function for odd even cricket game instructions
-def show_welcome():
-    print("=" * 40)
+# intro banner and rules
+def welcome():
+    bar = "=" * 40
+    print(bar)
     print("        ODD-EVEN CRICKET GAME        ")
-    print("=" * 40)
+    print(bar)
     print("This game consists of 2 innings.")
     print("Each innings has a maximum of 12 balls and 1 wicket.\n")
 
-#Function for showing if user won the toss or lost
-def show_toss_result(user_num, comp_num, total, winner_is_user):
-    print(f"\nYour number: {user_num}")
-    print(f"Computer number: {comp_num}")
-    print(f"Total: {total}")
-    if winner_is_user:
+# print toss outcome
+def toss_result(u_num, c_num, total, u_won):
+    s1 = "\nYour number: %s" % u_num
+    s2 = "Computer number: %s" % c_num
+    tot_str = "Total: " + str(total)
+    print(s1)
+    print(s2)
+    print(tot_str)
+    if u_won:
         print("You won the toss!")
     else:
         print("Computer won the toss!")
 
-#Function for showing mid game scores 
-def show_delivery(batter_label, batter_val, bowler_label, bowler_val, current_score):
-    print(f"{batter_label}: {batter_val}")
-    print(f"{bowler_label}: {bowler_val}")
-    print(f"Score: {current_score}\n")
+# display each ball delivery and score
+def delivery(bat_lbl, bat_val, bowl_lbl, bowl_val, cur_score):
+    b_info = "%s: %s" % (bat_lbl, bat_val)
+    bw_info = "%s: %s" % (bowl_lbl, bowl_val)
+    sc = "Score: " + str(cur_score) + "\n"
+    print(b_info)
+    print(bw_info)
+    print(sc)
 
-#Function for showing final score
-def show_innings_end(final_score):
-    print(f"\nFinal score: {final_score}\n")
+# innings finish score
+def innings_end(tot):
+    res_str = "\nFinal score: %s\n" % str(tot)
+    print(res_str)
 
-#Function for declaring who won the match and shows final scorecard
-def show_match_result(user_score, comp_score):
-    print("=" * 30)
+# declare match winner
+def match_result(u_score, c_score):
+    sep = "=" * 30
+    print(sep)
     print("            RESULT            ")
-    print("=" * 30)
-    print(f"Your score: {user_score}")
-    print(f"Computer score: {comp_score}\n")
-    if user_score > comp_score:
+    print(sep)
+    u_msg = "Your score: %d" % u_score
+    c_msg = "Computer score: %d\n" % c_score
+    print(u_msg)
+    print(c_msg)
+    if u_score > c_score:
         print("YOU WON THE GAME!")
-    elif comp_score > user_score:
+    elif c_score > u_score:
         print("YOU LOST THE GAME!")
     else:
         print("IT'S A TIE!")
-    print("=" * 30)
+    print(sep)
+
+# aliases for project compatibility
+show_welcome = welcome
+show_toss_result = toss_result
+show_delivery = delivery
+show_innings_end = innings_end
+show_match_result = match_result

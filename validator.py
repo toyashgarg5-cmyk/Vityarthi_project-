@@ -1,37 +1,54 @@
-#This function inputs Odd or Even from user
-def get_odd_even():
-    while True:
-        choice = input("Enter Odd or Even: ").strip().lower()
-        if choice in ["odd", "even"]:
-            return choice
+# ask user odd or even for toss
+def ask_odd_even():
+    while 1:
+        ch = input("Enter Odd or Even: ")
+        ch = ch.strip().lower()
+        # validate parity input
+        if ch == "odd" or ch == "even":
+            return ch
         print("Invalid choice! Please enter Odd or Even.")
 
-#This function inputs number from user between 1-6
-def get_number():
-    while True:
+# get toss number from user (1 to 6)
+def ask_number():
+    while 1:
+        raw_inp = input("Enter your number from 1 to 6: ")
         try:
-            val = int(input("Enter your number from 1 to 6: "))
-            if 1 <= val <= 6:
-                return val
-            print("Please enter a number between 1 and 6.")
+            n = int(raw_inp)
+            # check 1-6 bounds
+            if n >= 1 and n <= 6:
+                return n
+            else:
+                print("Please enter a number between 1 and 6.")
         except ValueError:
             print("Invalid input! Please enter a valid number.")
 
-#This function inputs the user's choice for batting or bowling if they won the toss
-def get_batting_bowling():
-    while True:
-        choice = input("Choose Batting or Bowling: ").strip().lower()
-        if choice in ["batting", "bowling"]:
-            return choice.capitalize()
+# user choice for batting or bowling after winning toss
+def ask_bat_bowl():
+    while 1:
+        ans = input("Choose Batting or Bowling: ")
+        ans = ans.strip().lower()
+        # check bat or bowl selection
+        if ans == "batting" or ans == "bowling":
+            return ans.capitalize()
         print("Invalid choice! Please type Batting or Bowling.")
 
-#This function handles the error
-def get_run_input(prompt):
-    while True:
+# get run / delivery input with custom prompt
+def ask_run(prompt):
+    while 1:
+        val = input(prompt)
         try:
-            val = int(input(prompt))
-            if 1 <= val <= 6:
-                return val
-            print("Invalid choice! Choose a number from 1 to 6.")
+            r = int(val)
+            # check valid range
+            if r >= 1 and r <= 6:
+                return r
+            else:
+                err = "Invalid choice! Choose a number from %d to %d." % (1, 6)
+                print(err)
         except ValueError:
             print("Invalid input! Please enter a number.")
+
+# compatibility aliases
+get_odd_even = ask_odd_even
+get_number = ask_number
+get_batting_bowling = ask_bat_bowl
+get_run_input = ask_run

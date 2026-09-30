@@ -3,64 +3,70 @@ from player import get_computer_toss_number, get_computer_toss_decision
 from display import show_welcome, show_toss_result, show_match_result
 from engine import play_batting_innings, play_bowling_innings
 
-# This function runs the toss
+# conduct toss between user and computer
 def conduct_toss():
     print("\n--- TOSS ---")
-    user_choice = get_odd_even()
-    user_num = get_number()
-    comp_num = get_computer_toss_number()
+    u_call = get_odd_even()
+    u_num = get_number()
+    c_num = get_computer_toss_number()
     
-    total = user_num + comp_num
+    tot = u_num+c_num # calculate toss sum
     
-    # Check if sum is odd or even
-    if total % 2 != 0:
-        toss_outcome = "odd"
+    # check sum parity
+    if tot % 2 == 0:
+        outcome = "even"
     else:
-        toss_outcome = "even"
+        outcome = "odd"
         
-    user_won = (user_choice == toss_outcome)
-    show_toss_result(user_num, comp_num, total, user_won)
+    win = (u_call == outcome)
+    show_toss_result(u_num, c_num, tot, win)
     
-    if user_won:
-        user_role = get_batting_bowling()
+    # role decision based on toss
+    if win:
+        role = get_batting_bowling()
     else:
-        comp_decision = get_computer_toss_decision()
-        print(f"Computer won the toss and chose to {comp_decision} first.")
-        if comp_decision == "Batting":
-            user_role = "Bowling"
+        c_pick = get_computer_toss_decision()
+        pick_str = "Computer won the toss and chose to %s first." % c_pick
+        print(pick_str)
+        if c_pick == "Batting":
+            role = "Bowling"
         else:
-            user_role = "Batting"
+            role = "Batting"
             
-    return user_role
+    return role
 
-# This function runs the actual game 
+# handle game flow for both innings
 def play_match():
     show_welcome()
-    user_first_role = conduct_toss()
+    first_role = conduct_toss()
     
-    if user_first_role == "Batting":
+    # innings 1 and 2 execution
+    if first_role == "Batting":
         print("\n--- You are batting first ---")
-        user_score = play_batting_innings()
-        target = user_score + 1
-        print(f"\nTarget for computer is {target} runs.")
+        u_score = play_batting_innings()
+        target = u_score + 1
+        t_msg = "\nTarget for computer is %d runs." % target
+        print(t_msg)
         
-        comp_score = play_bowling_innings(target)
+        c_score = play_bowling_innings(target)
     else:
         print("\n--- Computer is batting first (You are bowling) ---")
-        comp_score = play_bowling_innings()
-        target = comp_score + 1
-        print(f"\nTarget to chase is {target} runs.")
+        c_score = play_bowling_innings()
+        target = c_score + 1
+        t_msg = "\nTarget to chase is %d runs." % target
+        print(t_msg)
         
-        user_score = play_batting_innings(target)
+        u_score = play_batting_innings(target)
         
-    show_match_result(user_score, comp_score)
+    show_match_result(u_score, c_score)
 
-#This function asks the user if they want to play again
+# main game loop with replay option
 def main():
-    while True:
+    while 1:
         play_match()
-        play_again = input("\nDo you want to play again? (yes/no): ").lower().strip()
-        if play_again not in ["yes", "y"]:
+        again = input("\nDo you want to play again? (yes/no): ")
+        again = again.lower().strip()
+        if again not in ["yes", "y"]:
             print("Thanks for playing!")
             break
 
